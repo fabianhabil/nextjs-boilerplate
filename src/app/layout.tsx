@@ -32,10 +32,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <>
             <html lang='en' suppressHydrationWarning={true}>
                 <body
-                    className={cn('min-h-screen bg-background font-sfpro antialiased', fontSFPro.variable)}
+                    className={cn(
+                        'min-h-screen bg-background font-sfpro antialiased',
+                        fontSFPro.variable
+                    )}
                     suppressHydrationWarning={true}
                 >
-                    <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
+                    <ThemeProvider
+                        attribute='class'
+                        defaultTheme='dark'
+                        enableSystem
+                    >
                         <div className='container relative flex min-h-screen flex-col justify-center'>
                             <div>{children}</div>
                         </div>
