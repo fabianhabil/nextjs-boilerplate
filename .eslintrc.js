@@ -3,36 +3,46 @@ module.exports = {
         browser: true,
         es2021: true
     },
+    $schema: 'https://json.schemastore.org/eslintrc',
+    root: true,
     extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:import/recommended',
-        'plugin:import/typescript',
-        'next'
+        'next/core-web-vitals',
+        'prettier',
+        'plugin:tailwindcss/recommended'
     ],
+    plugins: ['tailwindcss', '@typescript-eslint', 'import'],
     parser: '@typescript-eslint/parser',
-    // parserOptions: {
-    //     ecmaVersion: 'latest',
-    //     project: ['./tsconfig.json'],
-    //     tsconfigRootDir: __dirname
-    // },
     parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: ['./tsconfig.json'],
+        project: './tsconfig.json',
         tsconfigRootDir: __dirname
     },
-    plugins: ['@typescript-eslint', 'import'],
     rules: {
+        '@next/next/no-html-link-for-pages': 'off',
+        'react/jsx-key': 'off',
+        'tailwindcss/no-custom-classname': 'off',
+        'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
         '@typescript-eslint/no-unused-vars': [
             'error',
             { argsIgnorePattern: '^_' }
         ],
-        // "no-nested-ternary": "off",
+        'no-nested-ternary': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
-        // "linebreak-style": 0,
-        // "react-hooks/exhaustive-deps": "off",
-        // "@next/next/no-img-element": "off",
+        'linebreak-style': 0,
+        indent: [
+            'off',
+            4,
+            {
+                SwitchCase: 1,
+                // Ignore decorators
+                ignoredNodes: [
+                    'FunctionExpression > .params[decorators.length > 0]',
+                    'FunctionExpression > .params > :matches(Decorator, :not(:first-child))',
+                    'ClassBody.body > PropertyDefinition[decorators.length > 0] > .key'
+                ]
+            }
+        ],
+        'react-hooks/exhaustive-deps': 'off',
 
         // React
         'react/react-in-jsx-scope': 'off',
@@ -67,13 +77,11 @@ module.exports = {
             { fixMixedExportsWithInlineTypeSpecifier: true }
         ],
 
-        '@next/next/no-img-element': 'off',
         // Import
         'import/first': 'error',
         'import/no-absolute-path': 'error',
         'import/no-self-import': 'error',
         'import/no-extraneous-dependencies': 'error',
-        'import/exports-last': 'error',
         'import/newline-after-import': 'error',
         'import/extensions': ['error', 'never'],
         'import/no-unresolved': 'off',
@@ -136,7 +144,7 @@ module.exports = {
         'comma-spacing': 'error',
         'comma-style': 'error',
         'computed-property-spacing': 'error',
-        'max-depth': 'off',
+        'max-depth': 'error',
         'dot-notation': 'error',
         'key-spacing': 'error',
         'keyword-spacing': 'error',
@@ -209,5 +217,20 @@ module.exports = {
                 ignoreEOLComments: true
             }
         ]
-    }
+    },
+    settings: {
+        tailwindcss: {
+            callees: ['cn'],
+            config: 'tailwind.config.js'
+        },
+        next: {
+            rootDir: ['./']
+        }
+    },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx'],
+            parser: '@typescript-eslint/parser'
+        }
+    ]
 };
